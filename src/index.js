@@ -27,9 +27,8 @@ connectDB()
       console.log("ERR", error);
       throw error;
     });
-    app.listen(process.env.PORT || 8000,
-      () => {
-        console.log("Server running");
-      })
+    app.listen(process.env.PORT || 8000, () => {
+      console.log("Server running");
+    });
   })
   .catch((error) => console.log("error connecting DB", error));
