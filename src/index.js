@@ -1,5 +1,6 @@
-import dotenv from 'dotenv'
-import connectDB from './db/index.js'
+import dotenv from "dotenv";
+import connectDB from "./db/index.js";
+import express from "express";
 
 // (async () => {
 //     const app = express()
@@ -14,9 +15,21 @@ import connectDB from './db/index.js'
 //         console.log(error)
 //     }
 // })();
+const app = express();
 
 dotenv.config({
-    path: './env'
-})
+  path: "./env",
+});
 
 connectDB()
+  .then(() => {
+    app.on("error", (error) => {
+      console.log("ERR", error);
+      throw error;
+    });
+    app.listen(process.env.PORT || 8000,
+      () => {
+        console.log("Server running");
+      })
+  })
+  .catch((error) => console.log("error connecting DB", error));
